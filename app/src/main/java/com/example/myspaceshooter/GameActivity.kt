@@ -9,8 +9,21 @@ import androidx.core.view.WindowInsetsCompat
 
 class GameActivity : AppCompatActivity() {
     private final val TAG = "GameActivity"
+    lateinit var game: Game
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        game = Game(this)
+        setContentView(game)
         Log.d(TAG, "Game Activity was launched")
+    }
+
+    override fun onPause() {
+        game.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        game.resume()
     }
 }
