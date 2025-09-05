@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MySpaceshooter</string>
     <string name="greeting_text">Hello Class!</string>
+    <string name="start_game_button_text">Start Game!</string>
 </resources>
