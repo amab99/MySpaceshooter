@@ -2,13 +2,10 @@ package com.example.myspaceshooter
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class GameActivity : AppCompatActivity() {
-    private final val TAG = "GameActivity"
+    private val TAG = "GameActivity"
     lateinit var game: Game
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,12 +15,12 @@ class GameActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        game.pause()
+        game.onPause()
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        game.resume()
+        game.onResume()
     }
 }
