@@ -19,6 +19,7 @@ class Game(context: Context?) : SurfaceView(context), Runnable, SurfaceHolder.Ca
     lateinit var gameThread: Thread
     @Volatile var isRunning : Boolean = false
     val stars = ArrayList<Star>()
+    val player = Player(this)
 
     init {
         holder?.addCallback(this)
@@ -46,12 +47,13 @@ class Game(context: Context?) : SurfaceView(context), Runnable, SurfaceHolder.Ca
         for (star in stars){
             star.render(canvas, paint)
         }
-
+        player.render(canvas, paint)
         holder.unlockCanvasAndPost(canvas)
     }
 
     private fun update() {
         //update all objects (entities)
+        player.update()
         for (star in stars){
             star.update()
         }
