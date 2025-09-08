@@ -14,12 +14,14 @@ const val STAGE_WIDTH = 1280
 const val STAGE_HEIGHT = 672
 var RNG = Random(uptimeMillis())
 const val STAR_COUNT = 50
+const val ENEMY_COUNT = 8
 
 class Game(context: Context?) : SurfaceView(context), Runnable, SurfaceHolder.Callback {
     private val TAG = "GAME"
     lateinit var gameThread: Thread
     @Volatile var isRunning : Boolean = false
     val stars = ArrayList<Star>()
+    val enemies = ArrayList<Enemy>()
     val player = Player(this)
     @Volatile var fingerDown = false
     var isBoosting = false
@@ -30,6 +32,9 @@ class Game(context: Context?) : SurfaceView(context), Runnable, SurfaceHolder.Ca
 
         for (i in 0 until STAR_COUNT) {
             stars.add(Star())
+        }
+        for (i in 0 until ENEMY_COUNT) {
+            enemies.add(Enemy(this))
         }
     }
 
@@ -46,9 +51,11 @@ class Game(context: Context?) : SurfaceView(context), Runnable, SurfaceHolder.Ca
         canvas.drawColor(Color.BLUE)
         val paint = Paint()
 
-        //render all entities
         for (star in stars){
             star.render(canvas, paint)
+        }
+        for (enemy in enemies){
+            enemy.render(canvas, paint)
         }
         player.render(canvas, paint)
         holder.unlockCanvasAndPost(canvas)
@@ -58,6 +65,9 @@ class Game(context: Context?) : SurfaceView(context), Runnable, SurfaceHolder.Ca
         isBoosting = fingerDown
         //update all objects (entities)
         player.update(isBoosting)
+        for (enemy in enemies){
+            enemy.update(player.velX)
+        }
         for (star in stars){
             star.update(player.velX)
         }
