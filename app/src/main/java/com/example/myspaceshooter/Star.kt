@@ -3,6 +3,7 @@ package com.example.myspaceshooter
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.health.connect.datatypes.units.Velocity
 
 class Star : Entity() {
 
@@ -14,9 +15,9 @@ class Star : Entity() {
         velX = -6f
     }
 
-    override fun update() {
+    fun update(playerVelocity: Float) {
         super.update()
-        x += velX
+        x -= playerVelocity
         if(right < 0){
             left = STAGE_WIDTH.toFloat()
             centerY = RNG.nextInt(STAGE_HEIGHT).toFloat()
