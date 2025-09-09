@@ -26,6 +26,11 @@ class Enemy(game: Game) : Entity() {
         respawn()
     }
 
+    override fun onCollision(that: Entity) {
+        super.onCollision(that)
+        respawn()
+    }
+
     private fun createScaledBitmap(game:Game, redId: Int) : Bitmap{
         val original = BitmapFactory.decodeResource(game.resources, redId)
         val ratio = PLAYER_HEIGHT.toFloat() / original.height

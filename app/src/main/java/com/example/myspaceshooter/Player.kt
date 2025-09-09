@@ -14,15 +14,23 @@ const val ACCELERATION = 0.8f //on the x axis
 const val BOOST_FORCE = -0.8f //on the y axis
 const val MAX_VEL= 20f
 const val VELOCITY_EPSILON = -0.01f //small threshold for snapping to 0
+const val PLAYER_STARTING_HEALTH = 3
 
 class Player(game: Game) : Entity() {
 
     private val bitmap = createScaledBitmap(game, R.drawable.player)
 
+    var health = PLAYER_STARTING_HEALTH
+
     init {
         width = bitmap.width.toFloat()
         height = bitmap.height.toFloat()
         x = 30f
+    }
+
+    override fun onCollision(that: Entity) {
+        super.onCollision(that)
+        health--
     }
 
     private fun createScaledBitmap(game:Game, redId: Int) : Bitmap{
