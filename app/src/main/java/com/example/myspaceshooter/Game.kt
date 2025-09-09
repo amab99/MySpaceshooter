@@ -18,9 +18,14 @@ const val STAGE_HEIGHT = 672
 var RNG = Random(uptimeMillis())
 const val STAR_COUNT = 50
 const val ENEMY_COUNT = 8
+const val PREFS  = "com.example.myspaceshooter"
+const val LONGEST_DIST = "longest_distance"
 
 class Game(context: Context) : SurfaceView(context), Runnable, SurfaceHolder.Callback {
     private val tag = "GAME"
+    private val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+    private val editor = prefs.edit()
+    private var maxDistanceTraveled = 0.0f
     private lateinit var gameThread: Thread
     @Volatile var isRunning : Boolean = false
     private val stars = ArrayList<Star>()
@@ -41,6 +46,7 @@ class Game(context: Context) : SurfaceView(context), Runnable, SurfaceHolder.Cal
         for (i in 0 until ENEMY_COUNT) {
             enemies.add(Enemy(this))
         }
+        maxDistanceTraveled = prefs.getFloat(LONGEST_DIST, 0.0f)
     }
 
     override fun run() {
@@ -109,6 +115,10 @@ class Game(context: Context) : SurfaceView(context), Runnable, SurfaceHolder.Cal
 
     private fun checkGameOver() {
         if(player.health < 0){
+            if(player.distanceTraveled > maxDistanceTraveled){
+                editor.putFloat(LONGEST_DIST, player.distanceTraveled)
+                editor.apply()
+            }
             isGameOver = true
         }
 
@@ -144,6 +154,7 @@ class Game(context: Context) : SurfaceView(context), Runnable, SurfaceHolder.Cal
             enemy.respawn()
         }
         player.respawn()
+        maxDistanceTraveled = prefs.getFloat(LONGEST_DIST, 0.0f)
         isGameOver = false
     }
 

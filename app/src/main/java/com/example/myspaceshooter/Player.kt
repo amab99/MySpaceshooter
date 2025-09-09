@@ -19,7 +19,6 @@ const val PLAYER_MARGIN_X = 20f
 class Player(game: Game) : Entity() {
 
     private val bitmap = createScaledBitmap(game, R.drawable.player)
-
     var health = PLAYER_STARTING_HEALTH
     var distanceTraveled = 0f
 

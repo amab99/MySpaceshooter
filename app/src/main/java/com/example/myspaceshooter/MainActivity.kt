@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
@@ -19,5 +20,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
+        val longestDistance = prefs.getFloat(LONGEST_DIST, 0.0f)
+        val highscore =findViewById<TextView>(R.id.highscore)
+        //highscore.text = "Longest distance: $longestDistance km"
+        highscore.text = getString(R.string.longest_distance, longestDistance.toInt())
     }
 }
