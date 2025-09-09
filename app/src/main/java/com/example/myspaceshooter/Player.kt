@@ -15,19 +15,28 @@ const val BOOST_FORCE = -0.8f //on the y axis
 const val MAX_VEL= 20f
 const val VELOCITY_EPSILON = -0.01f //small threshold for snapping to 0
 const val PLAYER_STARTING_HEALTH = 3
-
+const val PLAYER_MARGIN_X = 20f
 class Player(game: Game) : Entity() {
 
     private val bitmap = createScaledBitmap(game, R.drawable.player)
 
     var health = PLAYER_STARTING_HEALTH
+    var distanceTraveled = 0f
 
     init {
         width = bitmap.width.toFloat()
         height = bitmap.height.toFloat()
-        x = 30f
+        respawn()
     }
 
+    fun respawn(){
+        distanceTraveled = 0f
+        x = PLAYER_MARGIN_X
+        health = PLAYER_STARTING_HEALTH
+        centerY = STAGE_HEIGHT / 2.0f
+        velX = 0f
+        velY = 0f
+    }
     override fun onCollision(that: Entity) {
         super.onCollision(that)
         health--
@@ -50,7 +59,7 @@ class Player(game: Game) : Entity() {
             applyBoost()
         }
         y += velY
-
+        distanceTraveled += velX
         if(bottom > STAGE_HEIGHT) {
             bottom = STAGE_HEIGHT.toFloat()
             velY = 0f
