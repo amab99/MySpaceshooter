@@ -5,12 +5,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 class GameActivity : AppCompatActivity() {
-    private val TAG = "GameActivity"
+    private val tag = "GameActivity"
     lateinit var game: Game
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "Game Activity was launched")
+        Log.d(tag, "Game Activity was launched")
         game = Game(this)
         setContentView(game)
     }

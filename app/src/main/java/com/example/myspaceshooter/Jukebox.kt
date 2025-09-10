@@ -33,7 +33,7 @@ class Jukebox(private val assetManager: AssetManager) {
         try {
             val descriptor: AssetFileDescriptor = assetManager.openFd(fileName)
             return soundPool.load(descriptor, 1)
-        }catch(e: IOException){
+        }catch(_: IOException){
             Log.d(tag, "Unable to load $fileName! Check the filename, and make sure it's in the assets-folder.")
         }
         return 0

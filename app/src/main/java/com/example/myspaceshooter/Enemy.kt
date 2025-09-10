@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
+import androidx.core.graphics.scale
 
 class Enemy(game: Game) : Entity() {
 
@@ -36,7 +37,7 @@ class Enemy(game: Game) : Entity() {
         val ratio = PLAYER_HEIGHT.toFloat() / original.height
         val newH = (original.height * ratio).toInt()
         val newW = (original.width * ratio).toInt()
-        val scaled = Bitmap.createScaledBitmap(original, newW, newH, true)
+        val scaled = original.scale(newW, newH)
         return flipVertically(scaled)
     }
 

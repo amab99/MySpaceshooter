@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.math.MathUtils.clamp
 import kotlin.math.absoluteValue
+import androidx.core.graphics.scale
 
 const val PLAYER_HEIGHT = 75
 const val GRAVITY = 0.5f
@@ -46,7 +47,7 @@ class Player(game: Game) : Entity() {
         val ratio = PLAYER_HEIGHT.toFloat() / original.height
         val newH = (original.height * ratio).toInt()
         val newW = (original.width * ratio).toInt()
-        return Bitmap.createScaledBitmap(original, newW, newH, true)
+        return original.scale(newW, newH)
     }
 
     fun update(isBoosting: Boolean) {
