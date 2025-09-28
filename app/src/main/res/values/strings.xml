@@ -3,4 +3,12 @@
     <string name="greeting_text">Hello Class!</string>
     <string name="start_game_button_text">Start Game!</string>
     <string name="longest_distance">Longest distance: %1$d km</string>
+    <string name="health_text">Health:</string>
+    <string name="distance_text">Distance:</string>
+    <string name="shield">Shield: %.1fs</string>
+    <string name="game_over_text">GAME OVER</string>
+    <string name="press_to_start_text">Press to restart</string>
+    <string name="game_paused_text">PAUSED</string>
+    <string name="start_text">TAP TO START</string>
+    <string name="tap_to_continue">TAP TO CONTINUE</string>
 </resources>

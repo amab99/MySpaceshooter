@@ -1,32 +1,37 @@
 package com.example.myspaceshooter
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * This class represents the main activity of the game.
+ */
 class GameActivity : AppCompatActivity() {
-    private val tag = "GameActivity"
     lateinit var game: Game
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(tag, "Game Activity was launched")
         game = Game(this)
         setContentView(game)
     }
 
     override fun onPause() {
-        game.onPause()
         super.onPause()
+        game.onPause()
     }
 
     override fun onResume() {
-        super.onResume()
         game.onResume()
+        super.onResume()
+
     }
 
     override fun onDestroy() {
-        game.onDestroy()
         super.onDestroy()
+        game.onDestroy()
+    }
+    override fun onStop() {
+        super.onStop()
+        game.onPause()
     }
 }

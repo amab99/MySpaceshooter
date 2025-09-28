@@ -7,6 +7,10 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import androidx.core.graphics.scale
 
+/**
+ * This class represents the enemy in the game, the enemy scrolls from right to left.
+ */
+const val ENEMY_HEIGHT = 50
 class Enemy(game: Game) : Entity() {
 
     private val bitmap : Bitmap
@@ -27,20 +31,29 @@ class Enemy(game: Game) : Entity() {
         respawn()
     }
 
+    /**
+     * Function used when collision with the player, the enemy respawns.
+     */
     override fun onCollision(that: Entity) {
         super.onCollision(that)
         respawn()
     }
 
+    /**
+     * Function used to create a scaled bitmap for the enemy.
+     */
     private fun createScaledBitmap(game:Game, redId: Int) : Bitmap{
         val original = BitmapFactory.decodeResource(game.resources, redId)
-        val ratio = PLAYER_HEIGHT.toFloat() / original.height
+        val ratio = ENEMY_HEIGHT.toFloat() / original.height
         val newH = (original.height * ratio).toInt()
         val newW = (original.width * ratio).toInt()
         val scaled = original.scale(newW, newH)
         return flipVertically(scaled)
     }
 
+    /**
+     * Function to flip the bitmap around its center.
+     */
     fun flip(src: Bitmap, horizontally : Boolean) : Bitmap{
         val matrix = Matrix()
         val cx = src.width / 2f
@@ -53,9 +66,20 @@ class Enemy(game: Game) : Entity() {
         return Bitmap.createBitmap(src, 0, 0, src.width, src.height, matrix, true)
     }
 
+    /**
+     * Helper to flip the bitmap vertically.
+     */
     fun flipVertically(src:Bitmap) = flip(src, horizontally = false)
+
+    /**
+     * Helper to flip the bitmap horizontally.
+     */
     fun flipHorizontally(src:Bitmap) = flip(src, horizontally = true)
 
+    /**
+     * Function to update the enemy's position.
+     * Moving the enemy left relative to player velocity and respawning when off screen.
+     */
     fun update(playerVelocity: Float) {
         super.update()
         x -= playerVelocity
@@ -64,11 +88,17 @@ class Enemy(game: Game) : Entity() {
         }
     }
 
+    /**
+     * Function to respawn the enemy.
+     */
     fun respawn(){
         left = STAGE_WIDTH.toFloat() + RNG.nextInt(STAGE_WIDTH)
         centerY = RNG.nextInt(STAGE_HEIGHT).toFloat()
     }
 
+    /**
+     * function draws the enemy on the canvas.
+     */
     override fun render(canvas: Canvas, paint: Paint) {
         super.render(canvas, paint)
         canvas.drawBitmap(bitmap, x, y, paint)

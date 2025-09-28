@@ -2,8 +2,10 @@ package com.example.myspaceshooter
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.util.Log
 
+/**
+ * Base class for the game entities.
+ */
 abstract class Entity {
     private val tag = "Entity"
     var x = 0f
@@ -12,10 +14,6 @@ abstract class Entity {
     var height = 0f
     var velX = 0f
     var velY = 0f
-
-    init {
-        Log.d(tag, "Entity created")
-    }
 
     open fun update() {}
     open fun render(canvas: Canvas, paint: Paint) {}
